@@ -11,7 +11,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter チュートリアルアプリ',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        fontFamily: 'RobotoMono',
+        primarySwatch: Colors.teal,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.teal,
+          foregroundColor: Colors.white,
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.teal,
+          foregroundColor: Colors.white,
+        ),
+        textTheme: const TextTheme(
+          headlineMedium: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal,
+          ),
+        ),
+      ),
+      darkTheme: ThemeData.dark(),
+      themeMode:ThemeMode.system,
       home: const MyHomePage(title: 'カウンターアプリ'),
     );
   }
