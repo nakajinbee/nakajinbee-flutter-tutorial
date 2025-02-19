@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/second_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,18 +56,33 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _decrementCounter() {
+  void _decrementCounter(BuildContext context) {
     setState(() {
-      if(_counter > 0){
-        _counter--;
+      if(_counter <= 0){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('これ以上減らせません！'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 2),
+          ),
+      );
+        return;
       }
+      _counter--;
     });
   }
   void _resetCounter() {
-  setState(() {
-    _counter = 0; // カウントをリセット
-  });
-}
+    setState(() {
+      _counter = 0; // カウントをリセット
+    });
+  }
+  void _navigateToSecondPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SecondPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +101,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 color:Colors.blueAccent,
               ),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _navigateToSecondPage(context),
+              child: const Text('次のページへ'),
+            ),
           ],
         ),
       ),
@@ -102,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(width: 16),
               FloatingActionButton(
-                onPressed: _decrementCounter,
+                onPressed: () => _decrementCounter(context),
                 tooltip: 'Decrement',
                 backgroundColor: Colors.red,
                 child: const Icon(Icons.remove),
