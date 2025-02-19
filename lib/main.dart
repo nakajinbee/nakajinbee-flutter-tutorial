@@ -37,9 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _decrementCounter() {
     setState(() {
-      _counter--;
+      if(_counter > 0){
+        _counter--;
+      }
     });
   }
+  void _resetCounter() {
+  setState(() {
+    _counter = 0; // カウントをリセット
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -52,24 +59,47 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text('ボタンを押した回数:'),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: const TextStyle(
+                fontSize:48,
+                fontWeight:FontWeight.bold,
+                color:Colors.blueAccent,
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: Row(
+      floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Increment',
+                backgroundColor: Colors.blue,
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(width: 16),
+              FloatingActionButton(
+                onPressed: _decrementCounter,
+                tooltip: 'Decrement',
+                backgroundColor: Colors.red,
+                child: const Icon(Icons.remove),
+              ),
+            ], 
           ),
-          const SizedBox(width: 16),
+          const SizedBox(height: 16),
+          Row(
+           mainAxisAlignment: MainAxisAlignment.end,
+           children:[
           FloatingActionButton(
-            onPressed: _decrementCounter,
-            tooltip: 'Decrement',
-            child: const Icon(Icons.remove),
+            onPressed: _resetCounter,
+            tooltip: 'Reset',
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.refresh),
+          ),
+           ]
           ),
         ],
       ),
